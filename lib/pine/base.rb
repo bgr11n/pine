@@ -5,8 +5,6 @@ module Pine
     attr_accessor :builder
 
     def initialize
-      puts '-- 2 --'
-      puts builder.inspect
     end
 
     def call(env)
@@ -16,8 +14,6 @@ module Pine
     def self.use middleware, *args, &block
       builder ||= Rack::Builder.new
       builder.use middleware, *args, &block
-      puts '-- 1 --'
-      puts builder.inspect
     end
 
     def self.get *args
