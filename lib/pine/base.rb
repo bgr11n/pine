@@ -1,16 +1,21 @@
-require 'pine/inheritance'
+require 'pine/Inheritable'
 
 module Pine
   class Base
-    extend Inheritance
+    include Inheritable
+
     inheritable :middlewares, []
+
+    def initialize
+      puts self.class.middlewares.inspect
+    end
 
     def call(env)
       Controller.asd(env)
     end
 
     def self.use middleware, *args, &block
-      puts 'in self.use method'
+      middlewares << [middleware, args, block]
     end
 
     def self.get *args
