@@ -1,9 +1,9 @@
+require 'pine/inheritance'
+
 module Pine
   class Base
-    class << self
-      def use middleware, *args, &block
-      end
-    end
+    extend Inheritance
+    inheritable :widdlewares, []
 
     def call(env)
       Controller.asd(env)
