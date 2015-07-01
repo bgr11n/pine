@@ -1,5 +1,7 @@
 module Pine
   module Inheritable
+    # Just like NYNY does
+    # https://github.com/alisnic/nyny/blob/master/lib/nyny/primitives.rb
     def self.included base
       base.class_eval do
         def self.inheritable name, value
