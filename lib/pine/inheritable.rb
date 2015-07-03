@@ -1,10 +1,18 @@
 module Pine
   module Inheritable
-    # Just like NYNY does
-    # https://github.com/alisnic/nyny/blob/master/lib/nyny/primitives.rb
+    # def asd
+    #   @asd ||= []
+    # end
+
+    # def inherited base
+    #   puts 'self.asd - ' + self.to_s + ' = ' + self.asd.inspect
+    #   puts 'base.asd - ' + base.to_s + ' = ' + base.asd.inspect
+    #   puts '!! ' + self.to_s + ' was inherited by ' + base.to_s
+    #   puts '------- end --------'
+    #   self.asd.each { |m| base.asd << m }
+    # end
     def self.included base
       base.class_eval do
-        puts 'base - ' + base.to_s
         def self.inheritable name, value
           @_inheritables ||= []
           @_inheritables << name
@@ -14,7 +22,7 @@ module Pine
 
         def self.inherited subclass
           @_inheritables.each do |attr|
-            subclass.inheritable attr, self.send(attr)
+            subclass.inheritable attr, self.send(attr).dup
           end
         end
       end
