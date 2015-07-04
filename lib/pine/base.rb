@@ -6,12 +6,19 @@ module Pine
 
     inheritable :middlewares, []
 
-    def call(env)
-      Controller.asd(env)
+    def initialize
+      self.class.middlewares.each { |m, args, blk| builder.use m, *args, &blk }
     end
 
-    def initialize
-      puts '!! ' + self.class.middlewares.inspect
+    def call(env)
+      builder.run Controller.asd(env)
+      @app = builder.to_app
+      @app.call env
+    end
+
+
+    def builder
+      @builder ||= Rack::Builder.new
     end
 
     class << self

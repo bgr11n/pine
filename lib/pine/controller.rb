@@ -6,8 +6,12 @@ module Pine
       @request = Rack::Request.new env
     end
 
+    def params
+      request.params
+    end
+
     def self.asd(env)
-      [ 200, { 'Content-type' => 'text/html' }, [HomeController.new(env).index] ]
+      -> (env) { [ 200, { 'Content-type' => 'text/html' }, [HomeController.new(env).index] ] }
     end
   end
 end
