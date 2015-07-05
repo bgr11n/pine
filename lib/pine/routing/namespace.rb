@@ -1,21 +1,25 @@
+require 'delegate'
 require 'pine/routing/route'
 
 module Pine
-  class Namespace
+  HTTP_VERBS = [:delete, :get, :head, :options, :patch, :post, :put, :trace]
+
+  class Namespace < SimpleDelegator
     def initialize app, namespace, &blk
       @app = app
       @name = '/' + namespace
-      self.instance_eval(&blk)
+      __setobj__(@app)
+      instance_eval(&blk)
     end
 
-    [:delete, :get, :head, :options, :patch, :post, :put, :trace].each do |verb|
+    HTTP_VERBS.each do |verb|
       define_method verb do |path, options={}, &block|
-        @app.send(verb, @name + path, options, &block)
+        super(@name + path, options, &block)
       end
     end
 
     def namespace namespace, &blk
-      Pine::Namespace.new self, namespace, &blk
+      Namespace.new self, namespace, &blk
     end
   end
 end

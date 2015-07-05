@@ -3,15 +3,12 @@ require 'pine/routing/namespace'
 
 module Pine
   class Base
-    HTTP_VERBS = [:delete, :get, :head, :options, :patch, :post, :put, :trace]
     include Inheritable
 
     inheritable :middlewares, []
-    # inheritable :routes, []
     inheritable :routes, []
 
     def initialize
-      # puts '!! routes !! ' + self.class.routes.inspect
       puts self.class.routes.inspect
       self.class.middlewares.each { |m, args, blk| builder.use m, *args, &blk }
       builder.run Controller.asd
@@ -38,7 +35,7 @@ module Pine
       end
 
       def namespace namespace, &blk
-        Pine::Namespace.new self, namespace, &blk
+        Namespace.new self, namespace, &blk
       end
     end
   end
