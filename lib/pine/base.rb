@@ -8,11 +8,11 @@ module Pine
 
     def initialize
       self.class.middlewares.each { |m, args, blk| builder.use m, *args, &blk }
+      builder.run Controller.asd
+      @app = builder.to_app
     end
 
     def call(env)
-      builder.run Controller.asd(env)
-      @app = builder.to_app
       @app.call env
     end
 

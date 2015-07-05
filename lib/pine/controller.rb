@@ -10,7 +10,7 @@ module Pine
       request.params
     end
 
-    def self.asd(env)
+    def self.asd
       -> (env) { [ 200, { 'Content-type' => 'text/html' }, [HomeController.new(env).index] ] }
     end
   end
