@@ -6,15 +6,14 @@ module Pine
 
   class Namespace < SimpleDelegator
     def initialize app, namespace, &blk
-      @app = app
-      @name = '/' + namespace
-      __setobj__(@app)
+      @name = File.join('', namespace)
+      __setobj__(app)
       instance_eval(&blk)
     end
 
     HTTP_VERBS.each do |verb|
       define_method verb do |path, options={}, &block|
-        super(@name + path, options, &block)
+        super(File.join(@name, path), options, &block)
       end
     end
 
