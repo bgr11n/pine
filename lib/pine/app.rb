@@ -5,6 +5,7 @@ require "better_errors"
 
 module Pine
   class App < Base
-    use BetterErrors::Middleware unless Pine.env.development?
+    # TODO: only for development
+    use BetterErrors::Middleware
   end
 end
