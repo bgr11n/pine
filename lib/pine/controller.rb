@@ -11,6 +11,7 @@ module Pine
     end
 
     def self.run_by route, env
+      return route[:options][:to] if route[:options][:to].is_a? Array
       controller, action = route[:options][:to].split('#')
       Object.const_get("#{controller.to_camel_case}Controller").new(env, route).form_response(action)
     end

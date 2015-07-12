@@ -9,6 +9,7 @@ module Pine
     inheritable :route, Route.new
 
     def initialize
+      puts "!! " + self.class.route.routes.inspect
       self.class.middlewares.each { |m, args, blk| builder.use m, *args, &blk }
       builder.run self.class.route.endpoint
       @app = builder.to_app
