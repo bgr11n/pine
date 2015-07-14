@@ -1,5 +1,2 @@
-require "pine/environment"
-require "pine/base"
-require "pine/controller"
 require "pine/version"
 require "pine/app"

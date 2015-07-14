@@ -1,3 +1,5 @@
+require 'active_support/core_ext/object/deep_dup'
+
 module Pine
   module Inheritable
     def self.included base
@@ -11,7 +13,7 @@ module Pine
 
         def self.inherited subclass
           @_inheritables.each do |attr|
-            subclass.inheritable attr, self.send(attr).dup
+            subclass.inheritable attr, self.send(attr).deep_dup
           end
         end
       end
