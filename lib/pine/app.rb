@@ -1,6 +1,5 @@
 require 'pine/utils'
 require 'pine/environment'
-require 'pine/controller'
 require 'pine/base'
 require 'better_errors'
 
