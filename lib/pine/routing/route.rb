@@ -1,3 +1,5 @@
+require 'pine/controller/base'
+
 module Pine
   class Route
     attr_accessor :routes
@@ -8,7 +10,7 @@ module Pine
 
     def take_a_journey env
       route = routes[request_method(env)].detect { |route| path_info(env) =~ route[:path] }
-      route.nil? ? Response.not_found : Controller.run_by(route, env)
+      Controller::Base.run_by(route, env)
     end
 
     def write verb, path, options
