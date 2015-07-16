@@ -1,9 +1,14 @@
 module Pine
   class Base
 
+    def initialize
+      puts "!! " + self.class.router.routes.inspect
+    end
+
     def call(env)
       [404, { 'Content-type' => 'application/json' }, [env.inspect]]
     end
+
   end
 
   # Pine environment utility. Makes avaliable such methods like:
