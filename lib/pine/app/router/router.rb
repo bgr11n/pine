@@ -1,3 +1,5 @@
+require 'pine/app/controller'
+
 module Pine
   class Router
     attr_accessor :routes
@@ -7,7 +9,8 @@ module Pine
     end
 
     def endpoint(env)
-      [404, { 'Content-type' => 'application/json' }, [env.inspect]]
+      route = routes[request_method(env)].detect { |route| path_info(env) =~ route[:path] }
+      Controller.follow_by(route, env)
     end
 
     def add verb, path, options
@@ -23,5 +26,12 @@ module Pine
       { path: /^#{compiled_path}$/, options: options, extra_params: extra_params }
     end
 
+    def request_method env
+      env['REQUEST_METHOD'].downcase.to_sym
+    end
+
+    def path_info env
+      env['PATH_INFO'].downcase
+    end
   end
 end
