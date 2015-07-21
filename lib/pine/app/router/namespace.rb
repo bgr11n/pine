@@ -13,7 +13,7 @@ module Pine
 
     HTTP_VERBS.each do |verb|
       define_method verb do |path, options|
-        super(File.join(@name, path), options, &block)
+        super(File.join(@name, path), options)
       end
     end
 

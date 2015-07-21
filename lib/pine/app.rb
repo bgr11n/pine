@@ -7,6 +7,8 @@ module Pine
   class App < Base
 
     def call(env)
+      # TODO: Handle request for favicon.ico
+      return [ 404, {}, [] ] if env["PATH_INFO"] == "/favicon.ico"
       self.class.router.endpoint(env)
     end
 

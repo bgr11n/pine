@@ -16,7 +16,7 @@ module Pine
     end
 
     def get_response action
-      response.body = self.send(action)
+      response.body = self.send(action) || ''
       response.build
     end
 
