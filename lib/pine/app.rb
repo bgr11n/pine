@@ -1,5 +1,6 @@
 require 'pine/utils'
 require 'pine/base'
+require 'pine/app/response'
 require 'pine/app/router/router'
 require 'pine/app/router/namespace'
 
@@ -8,7 +9,7 @@ module Pine
 
     def call(env)
       # TODO: Handle request for favicon.ico
-      return [ 404, {}, [] ] if env["PATH_INFO"] == "/favicon.ico"
+      return Response.not_found if env["PATH_INFO"] == "/favicon.ico"
       self.class.router.endpoint(env)
     end
 
